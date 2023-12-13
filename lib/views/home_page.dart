@@ -1,124 +1,34 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:veno_vista/controllers/home_controller.dart';
 import 'package:veno_vista/models/snake_vo.dart';
-import 'package:veno_vista/networks/load_json_data.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:veno_vista/views/detail_page.dart';
+import 'package:veno_vista/resources/dimens.dart';
 
-class HomePage extends StatefulWidget {
-  @override
-  State<HomePage> createState() => _HomePageState();
-}
-
-class _HomePageState extends State<HomePage> {
-  List<SnakeVO>? originalSnakeList;
-  List<SnakeVO>? filterSnakeList;
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    LoadJsonData().loadData().then((value) {
-      setState(() {
-        filterSnakeList = value;
-        originalSnakeList = value;
-      });
-    });
-  }
-
-  @override
-  void dispose() {
-    // TODO: implement dispose
-    super.dispose();
-  }
-
+class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    HomeController homeController = Get.put(HomeController());
+    homeController.fetchData();
     return Scaffold(
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: const EdgeInsets.all(MARGIN_MEDIUM),
           child: Column(
             children: [
-              TextField(
-                decoration: InputDecoration(
-                  hintText: "ရှာဖွေရန်",
-                  prefixIcon: Icon(Icons.search),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(20),
-                    borderSide: BorderSide(
-                      color: Colors.blue,
-                    ),
-                  ),
-                ),
-                onChanged: (value) {
-                  setState(() {
-                    filterSnakeList = originalSnakeList!.where((snake) {
-                      return snake.mmName.contains(value);
-                    }).toList();
-                  });
-                },
-              ),
-              SizedBox(height: 10),
+              SearchTextFieldSection(),
+              SizedBox(height: MARGIN_MEDIUM_2),
               Expanded(
-                child: filterSnakeList == null
-                    ? Center(child: CircularProgressIndicator())
-                    : MasonryGridView.count(
-                        crossAxisSpacing: 10,
-                        crossAxisCount: 2,
-                        itemCount: filterSnakeList?.length,
-                        mainAxisSpacing: 10,
-                        itemBuilder: (context, index) {
-                          return GestureDetector(
-                            onTap: () {
-                              Get.to(() => DetailPage(),
-                                  arguments: [filterSnakeList![index]]);
-                            },
-                            child: Column(
-                              children: [
-                                Container(
-                                  padding: EdgeInsets.only(bottom: 10),
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(10),
-                                    //color: Colors.white,
-                                    boxShadow: [
-                                      BoxShadow(
-                                        color: Colors.white.withOpacity(0.1),
-                                        //blurRadius: 5,
-                                        spreadRadius: 1,
-                                        offset: Offset(1, 1),
-                                      ),
-                                    ],
-                                  ),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      ClipRRect(
-                                        borderRadius: BorderRadius.circular(10),
-                                        child: Image.asset(
-                                            "assets/images/${filterSnakeList![index].id}.jpg"),
-                                      ),
-                                      Padding(
-                                        padding: EdgeInsets.only(
-                                          right: 8,
-                                          left: 8,
-                                          top: 10,
-                                        ),
-                                        child: Text(
-                                          filterSnakeList![index].mmName,
-                                          maxLines: 1,
-                                          overflow: TextOverflow.ellipsis,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ],
-                            ),
-                          );
-                        }),
+                child: Obx(
+                  () {
+                    if (homeController.isLoading.value) {
+                      return Center(child: CircularProgressIndicator());
+                    } else {
+                      return SnakeGridViewSection(
+                          homeController: homeController);
+                    }
+                  },
+                ),
               ),
             ],
           ),
@@ -140,6 +50,118 @@ class _HomePageState extends State<HomePage> {
           ),
         ],
       ),
+    );
+  }
+}
+
+class SnakeGridViewSection extends StatelessWidget {
+  const SnakeGridViewSection({
+    super.key,
+    required this.homeController,
+  });
+
+  final HomeController homeController;
+
+  @override
+  Widget build(BuildContext context) {
+    return MasonryGridView.count(
+        crossAxisSpacing: MARGIN_MEDIUM_10,
+        crossAxisCount: 2,
+        itemCount: homeController.filterSnakeList.length,
+        mainAxisSpacing: MARGIN_MEDIUM_10,
+        itemBuilder: (context, index) {
+          SnakeVO snake = homeController.filterSnakeList[index];
+          return SnakeViewSection(snake: snake);
+        });
+  }
+}
+
+class SnakeViewSection extends StatelessWidget {
+  const SnakeViewSection({
+    super.key,
+    required this.snake,
+  });
+
+  final SnakeVO snake;
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        Get.toNamed("/detail", arguments: [snake]);
+      },
+      child: Column(
+        children: [
+          Container(
+            padding: EdgeInsets.only(bottom: MARGIN_MEDIUM_10),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(BORDER_RADIUS_SIZE_10),
+              //color: Colors.white,
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.white.withOpacity(0.1),
+                  //blurRadius: 5,
+                  spreadRadius: 1,
+                  offset: Offset(1, 1),
+                ),
+              ],
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(BORDER_RADIUS_SIZE_10),
+                  child: Image.asset(
+                    "assets/images/${snake.id}.jpg",
+                    fit: BoxFit.cover,
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.only(
+                    right: MARGIN_MEDIUM,
+                    left: MARGIN_MEDIUM,
+                    top: MARGIN_MEDIUM_10,
+                  ),
+                  child: Text(
+                    snake.mmName,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class SearchTextFieldSection extends StatelessWidget {
+  const SearchTextFieldSection({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    HomeController homeController = Get.find<HomeController>();
+    return TextField(
+      style: TextStyle(height: 1),
+      decoration: InputDecoration(
+        hintText: "Search",
+        prefixIcon: Icon(Icons.search),
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(BORDER_RADIUS_SIZE_10),
+          borderSide: BorderSide(width: 1),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(BORDER_RADIUS_SIZE_10),
+          borderSide: BorderSide(width: 2, color: Colors.grey),
+        ),
+      ),
+      onChanged: (value) {
+        homeController.filterSnakes(value);
+      },
     );
   }
 }

@@ -225,6 +225,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "7.0.0"
+  file_cache_provider:
+    dependency: transitive
+    description:
+      name: file_cache_provider
+      sha256: f53d123ac8ed04498b8f133edffd23ddeabe3e03bad6bd656339f23affa862ce
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.0"
   fixnum:
     dependency: transitive
     description:
@@ -267,6 +275,14 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  font_awesome_flutter:
+    dependency: "direct main"
+    description:
+      name: font_awesome_flutter
+      sha256: "52671aea66da73b58d42ec6d0912b727a42248dd9a7c76d6c20f275783c48c08"
+      url: "https://pub.dev"
+    source: hosted
+    version: "10.6.0"
   frontend_server_client:
     dependency: transitive
     description:
@@ -323,6 +339,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "4.0.2"
+  image_cache:
+    dependency: "direct main"
+    description:
+      name: image_cache
+      sha256: "96849d37eb2672280bc6f2754ca71ddeceb2cd475c6a8b10c2add29eaa68a30c"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.1"
   io:
     dependency: transitive
     description:
@@ -363,6 +387,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.1.1"
+  loading_animation_widget:
+    dependency: transitive
+    description:
+      name: loading_animation_widget
+      sha256: "1901682600273a966c34cf44a85fc5355da92a8d08a8a43c11adc4e471993e3a"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.2.0+4"
   logging:
     dependency: transitive
     description:
