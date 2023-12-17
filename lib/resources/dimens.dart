@@ -19,5 +19,5 @@ const TEXT_BIG = 32.0;
 
 ///App Specific Dimensions
 
-const SLIVER_IMAGE_HEIGHT = 280.0;
+const SLIVER_IMAGE_HEIGHT = 350.0;
 const BORDER_RADIUS_SIZE_10 = 10.0;

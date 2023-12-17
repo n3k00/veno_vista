@@ -41,6 +41,8 @@ dependencies:
   cached_network_image: ^3.3.0
   font_awesome_flutter: ^10.6.0
   image_cache: ^1.0.1
+  get_storage: ^2.1.1
+  shared_preferences: ^2.2.2
 
 dev_dependencies:
   flutter_test:

@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:veno_vista/networks/load_json_data.dart';
 import 'package:veno_vista/views/detail_page.dart';
+import 'package:veno_vista/views/favorite_page.dart';
 import 'package:veno_vista/views/home_page.dart';
 import 'package:get/get.dart';
+import 'package:veno_vista/views/main_page.dart';
 
-void main() {
+void main() async {
   runApp(const MyApp());
 }
 
@@ -21,8 +24,10 @@ class MyApp extends StatelessWidget {
       ),
       initialRoute: '/',
       getPages: [
-        GetPage(name: '/', page: () => HomePage()),
-        GetPage(name: '/detail', page: () => DetailPage()),
+        GetPage(name: '/', page: () => MainPage()),
+        GetPage(name: '/home', page: () => HomePage()),
+        GetPage(name: '/favorite', page: () => FavoritePage()),
+        GetPage(name: '/home/detail', page: () => DetailPage()),
       ],
     );
   }

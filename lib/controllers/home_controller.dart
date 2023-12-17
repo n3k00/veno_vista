@@ -1,6 +1,10 @@
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:veno_vista/controllers/favorite_controller.dart';
 import 'package:veno_vista/models/snake_vo.dart';
 import 'package:veno_vista/networks/load_json_data.dart';
+import 'package:veno_vista/views/favorite_page.dart';
+import 'package:veno_vista/views/home_page.dart';
 
 class HomeController extends GetxController {
   var isLoading = true.obs;
