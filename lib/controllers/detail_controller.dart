@@ -4,10 +4,10 @@ import 'package:veno_vista/models/snake_vo.dart';
 import 'package:veno_vista/networks/load_json_data.dart';
 
 class DetailController extends GetxController {
-  final box = GetStorage('VenoVista');
+  /* final box = GetStorage('VenoVista');
   final favoriteList = <SnakeVO>[].obs;
   var isFavorite = false.obs;
-  final originalSnakeList = <SnakeVO>[].obs;
+  final originalSnakeList = <SnakeVO>[].obs;*/ /*
 
   @override
   void onInit() {
@@ -21,12 +21,12 @@ class DetailController extends GetxController {
       await Future.delayed(Duration(seconds: 1));
       List<SnakeVO> data = await LoadJsonData().loadData();
       originalSnakeList.assignAll(data);
-      List<SnakeVO> storedList = box.read<List<SnakeVO>>("favorite") ?? [];
+      */ /*List<SnakeVO> storedList = box.read<List<SnakeVO>>("favorite") ?? [];
 
-      favoriteList.addAll(storedList);
+      favoriteList.addAll(storedList);*/ /*
     } finally {}
   }
-
+*/ /*
   void toggleFavorite(SnakeVO snake) {
     if (favoriteList.any((favoriteSnake) => favoriteSnake.id == snake.id)) {
       favoriteList.remove(snake);
@@ -40,5 +40,5 @@ class DetailController extends GetxController {
   void checkFavorite(SnakeVO snake) {
     isFavorite.value =
         favoriteList.any((favoriteSnake) => favoriteSnake.id == snake.id);
-  }
+  }*/
 }

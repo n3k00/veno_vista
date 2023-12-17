@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:veno_vista/controllers/detail_controller.dart';
-import 'package:veno_vista/controllers/favorite_controller.dart';
 import 'package:veno_vista/models/snake_vo.dart';
 import 'package:veno_vista/resources/dimens.dart';
 import 'package:veno_vista/widgets/chip_widget.dart';
@@ -11,7 +9,6 @@ class DetailPage extends StatelessWidget {
   final SnakeVO snake = Get.arguments[0];
   @override
   Widget build(BuildContext context) {
-    DetailController detailController = Get.put(DetailController());
     return Scaffold(
       body: SafeArea(
         child: CustomScrollView(
@@ -44,33 +41,12 @@ class DetailPage extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              snake.mmName,
-                              style: TextStyle(
-                                fontSize: TEXT_REGULAR_3X,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            Obx(
-                              () {
-                                detailController.checkFavorite(snake);
-                                print(detailController.isFavorite.value);
-                                return IconButton(
-                                  onPressed: () {
-                                    detailController.toggleFavorite(snake);
-                                  },
-                                  icon: Icon(
-                                    detailController.isFavorite.value
-                                        ? Icons.favorite
-                                        : Icons.favorite_border,
-                                  ),
-                                );
-                              },
-                            ),
-                          ],
+                        Text(
+                          snake.mmName,
+                          style: TextStyle(
+                            fontSize: TEXT_REGULAR_3X,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                         SizedBox(height: MARGIN_MEDIUM),
 
