@@ -28,7 +28,7 @@ class DetailController extends GetxController {
   }
 
   void toggleFavorite(SnakeVO snake) {
-    if (favoriteList.contains(snake)) {
+    if (favoriteList.any((favoriteSnake) => favoriteSnake.id == snake.id)) {
       favoriteList.remove(snake);
     } else {
       favoriteList.add(snake);

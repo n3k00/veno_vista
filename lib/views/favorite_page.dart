@@ -37,7 +37,58 @@ class FavoritePage extends StatelessWidget {
                           itemBuilder: (context, index) {
                             SnakeVO snake =
                                 favoriteController.favoriteSnakeList[index];
-                            return SnakeViewWidget(snake: snake);
+                            return GestureDetector(
+                              onTap: () {
+                                Get.toNamed("/home/detail", arguments: [snake]);
+                              },
+                              child: Column(
+                                children: [
+                                  Container(
+                                    padding: EdgeInsets.only(
+                                        bottom: MARGIN_MEDIUM_10),
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(
+                                          BORDER_RADIUS_SIZE_10),
+                                      //color: Colors.white,
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Colors.white.withOpacity(0.1),
+                                          //blurRadius: 5,
+                                          spreadRadius: 1,
+                                          offset: Offset(1, 1),
+                                        ),
+                                      ],
+                                    ),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        ClipRRect(
+                                          borderRadius: BorderRadius.circular(
+                                              BORDER_RADIUS_SIZE_10),
+                                          child: Image.asset(
+                                            "assets/images/${snake.id}.jpg",
+                                            fit: BoxFit.cover,
+                                          ),
+                                        ),
+                                        Padding(
+                                          padding: EdgeInsets.only(
+                                            right: MARGIN_MEDIUM,
+                                            left: MARGIN_MEDIUM,
+                                            top: MARGIN_MEDIUM_10,
+                                          ),
+                                          child: Text(
+                                            snake.mmName,
+                                            maxLines: 1,
+                                            overflow: TextOverflow.ellipsis,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            );
                           },
                         );
                       }

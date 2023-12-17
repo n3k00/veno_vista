@@ -5,8 +5,6 @@ import 'package:veno_vista/controllers/favorite_controller.dart';
 import 'package:veno_vista/views/favorite_page.dart';
 import 'package:veno_vista/views/home_page.dart';
 
-import 'favorite_binding.dart';
-
 class MainController extends GetxController {
   var currentIndex = 0.obs;
 

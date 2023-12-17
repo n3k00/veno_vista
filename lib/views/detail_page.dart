@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:veno_vista/controllers/detail_controller.dart';
+import 'package:veno_vista/controllers/favorite_controller.dart';
 import 'package:veno_vista/models/snake_vo.dart';
 import 'package:veno_vista/resources/dimens.dart';
 import 'package:veno_vista/widgets/chip_widget.dart';
