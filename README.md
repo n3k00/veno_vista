@@ -2,6 +2,6 @@
 
 [Data Resource](https://github.com/sannlynnhtun-coding/Snakes)
 
-![Home Page](home_page.png)
+<img src="home_page.png" alt="Home Page" style="width:300px;"/>
 
-![Detail Page](detail_page.png)
+<img src="detail_page.png" alt="detail" style="width:300px;"/>
